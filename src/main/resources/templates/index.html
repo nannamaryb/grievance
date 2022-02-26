@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+ <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">       
+        <meta charset="utf-8" />
+        <title>Department of Public Grievances, Government of India</title>
+        <link rel="stylesheet" media="all" href="/css/styles.css" th:href="@{/css/styles.css}" type="text/css"/>
+        <!-- Main CSS-->
+        <link href="/css/main.css" th:href="@{css/main.css}"rel="stylesheet" media="all">
+        <link rel="stylesheet" href="css/captcha.css" th:href="@{css/captcha.css}">
+ </head>
+         <nav class="navbar navbar-expand-lg navbar-dark" style="height: 25px; background-color:rgb(52, 76, 127);">
+            <div class="container fluid">
+                <h6 style="color: white;font-size: small;"> Government of India | Ministry of Personnel, Public Grievances</h6>
+               &nbsp;&nbsp;&nbsp;
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#!">Contact us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Help</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+         </nav>
+         &nbsp; &nbsp; &nbsp; &nbsp;<a href="/"><img src="images/title2.jpg"  height="120" width="500"  th:src="@{images/title2.jpg}" /></a>
+         <img class="d-block w-100" src="images/baner-cpgrams_4.jpg" style="height: 300px;" alt="First slide">
+          <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgb(0, 51, 102);">
+            <div class="container px-5">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a aria-current="page" class="nav-link active" th:href="@{/}">Lodge Grievance</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Sign in</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        <!-- Page Content-->
+         <div class="container px-2 px-lg-4">   <br><br>
+            <p style="text-align: left;color: rgb(26, 38, 63);font-size: small;"><b><i>All fields marked as <span style="color: red;font-size: medium;"> * </span>is mandatory</i></b></p>
+        </div>          
+    <div class="container-fluid">
+    	<div class="row">  
+        <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card card-4">
+              <div class="card-body">
+              
+                <div>
+                    <h1><b><p style="color: rgb(26, 38, 63);font-size:21px">GRIEVANCE REGISTRATION FORM</p></b></h1>
+                  </div> <br><br>
+                    <form th:action="@{/addPg}" method="post" th:object="${RegData}" enctype="multipart/form-data">
+                      <div class = "row">
+                        <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                <label class="required"><b>Name</b></label>
+                                  <input type="text" class="form-control" id="inputname" name="name" th:value="${RegData.name}" th:classappend="${#fields.hasErrors('name')?'is-invalid':''}" >
+                                    <div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}"></div>
+                              </div>
+                              <br>                        
+                              <div class="form-group">
+                                <label class="required"><b>Mobile</b></label>
+                                <input type="text" class="form-control" id="inputmob" name="mobile" th:value="${RegData.mobile}" th:classappend="${#fields.hasErrors('mobile')?'is-invalid':''}" >
+                                <div class="invalid-feedback" th:each="e : ${#fields.errors('mobile')}" th:text="${e}"></div>
+                              </div>                      
+                                <br>
+                            <div class="form-group">
+                                <label class="required"><b>Email</b></label>
+                                <input type="text" class="form-control" id="inputEmail4" name="email" th:value="${RegData.email}" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" >
+                                <div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+                            </div>
+                              <br>
+                            <label class="required"><b>Gender</b></label>
+                            <br>
+                            <div class="form-group">
+                              <span th:each="gen: ${gender_value}"> 
+                                <div  class="form-check form-check-inline">
+                                  <input  type="radio" th:field="*{gender}" th:value="${gen}" class="form-check-input"/> 
+                                  <label class="form-check-label" th:text="${gen}">gender</label>
+                                </div>
+                              </span>
+                            </div>
+                            <p  class="errors" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
+                            <br>                                         
+                            <div class="form-group">
+                              <label class="required"><b>Pincode</b></label>
+                              <input type="text" class="form-control" id="inputEmail4" name="pincode" th:value="${RegData.pincode}" th:classappend="${#fields.hasErrors('pincode')?'is-invalid':''}" >
+                              <div class="invalid-feedback" th:each="e : ${#fields.errors('pincode')}" th:text="${e}"></div>
+                            </div>
+                        </div>    
+                        <div class="col-12 col-md-6">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label class="required"><b>State</b></label>
+                                  <select id="inputState" class="form-control">
+                                  <option selected>--select a state--</option>
+                                  <option th:each="s: ${state}" th:text="${s.name}" th:vale="${s.id}"></option>
+                                  </select>
+                                </div>
+                                    <br>
+                                <div class="form-group col-md-6">
+                                  <label class="required"><b>District</b></label>
+                                  <select id="inputState" class="form-control">
+                                  <option selected>--select district--</option>
+                                  <option th:each="d: ${district}" th:text="${d.name}" th:if="${d.stateId == 18}" th:vale="${d.id}"></option>
+                                  </select>
+                                </div>
+                            </div>
+                             <br>
+                          <div class="form-group">
+                            <label class="required"><b>Category/Department</b></label>
+                              <input type="text" class="form-control" id="inputfield" name="category" th:value="${RegData.category}" th:classappend="${#fields.hasErrors('category')?'is-invalid':''}" >
+                                <div class="invalid-feedback" th:each="e : ${#fields.errors('category')}" th:text="${e}"></div>
+                          </div>
+                               <br>
+                          <div class="form-group">
+                            <label class="required"><b>Text of Grievance</b><i style="font-size: 11px;"> (Maximum of 4000 characters)</i></label> 
+                              <textarea class="form-control" id="grievance" rows="5" name="grievance" th:value="${RegData.grievance}" th:classappend="${#fields.hasErrors('grievance')?'is-invalid':''}" ></textarea> 
+                                <div class="invalid-feedback" th:each="e : ${#fields.errors('grievance')}" th:text="${e}"></div>
+                          </div>
+                               <br>
+                          <div class="form-group">
+                            <label class="form-label"><b>Attach any document(if any)</b></label>
+                              <div class="custom-file">
+                                <label class="custom-file-label" ><p style="color:rgb(69, 72, 73);font-size:12px">Choose file<i>(.pdf ,size upto 1mb)</i></p></label>
+                                <input type="file" name="files">
+                              </div> 
+                            <br><br>
+                          </div>
+
+                           <div class="form-group">
+                                <label class="required"><b>Enter the captcha</b></label>
+                                <div class="wrapper">
+                                  <div class="captcha-area">
+                                    <div class="captcha-img">
+                                      <img src="images/captcha-bg.png" th:src="@{images/captcha-bg.png}" alt="Captcha Background">
+                                      <span class="captcha"></span>
+                                    </div>
+                                    <div class="reload-btn"><img width="30px" height="30px" src="images/Refresh.png" th:src="@{images/Refresh.png}"></div>
+                                  </div>
+                                      <div class="input-area">
+                                        <input type="text" placeholder="Enter captcha" maxlength="6" spellcheck="false" >
+                                        <button class="check-btn">Check</button>
+                                      </div>
+                                  <div class="status-text"></div>
+                                </div>
+                            </div>
+
+                      </div>
+                          <div class="row">
+                            <div class="col col-sm-12 col-md-6 col-lg-6">
+                              <div class="form-group form-check">
+                                <input name="agreed" type="checkbox" th:classappend="${#fields.hasErrors('agreed')?'is-invalid':''}" class="form-check-input" id="exampleCheck1">
+                                  <label class="form-check-label" for="exampleCheck1">I agree that the above details are true to my knowledge</label>
+                                       <label class="required"></label>
+                                  <div class="invalid-feedback" th:each="e : ${#fields.errors('agreed')}" th:text="${e}"></div>
+                              </div>
+                            </div>
+                          </div>
+                        <br>
+                        
+                      </div> 
+                      <center>
+                        <button class="btn btn-radius-1 btn--green" type="submit">Submit</button>
+                      &nbsp; &nbsp;
+                      <button class="btn btn-radius-1 btn--blue" type="reset">Cancel</button>
+                      </center>
+                      <br>
+                  </form>
+            	  </div>
+              </div>
+            </div>
+          </div> 
+        </div>    
+       <br>
+      
+      <script src="script.js" th:src="@{js/script.js}"></script>
+
+
+      </div>
+
+        <!-- Footer-->
+           <div class="container-fluid">
+                 <div class = "row" style="background-color:rgb(0, 51, 102);height: 100px;">
+                          <center>
+                            &nbsp;  <a href="" target="_blank"><img src="images/gandhi.jfif" width="150" height="50"  th:src="@{images/gandhi.jfif}" style="padding-top: 8px;" /></a>
+                            &nbsp;  <a href="https://digitalindia.gov.in/" target="_blank"><img src="images/dig.png" width="150" height="50"  th:src="@{images/dig.png}" style="padding-top: 8px;" /></a>
+                            &nbsp;  <a href="https://www.nic.in/" target="_blank"><img src="images/nic.png" width="150" height="50"  th:src="@{images/nic.png}" style="padding-top: 8px;" /></a>
+                            &nbsp;  <a href="https://www.india.gov.in/" target="_blank"><img src="https://www.india.gov.in/sites/all/themes/adaptivetheme/npi_adaptive/images/linktousbanner/banner4.jpg" width="150" height="50" th:src="@{https://www.india.gov.in/sites/all/themes/adaptivetheme/npi_adaptive/images/linktousbanner/banner4.jpg}" style="padding-top: 8px;"/></a>
+                          </center>
+               </div>
+                  <div class = "row" style="background-color:rgb(0, 51, 102)">
+                    <center><p style="font-size: 10px;color:white;">Copyright © 2022</p></center>
+                  </div>
+                  <div class = "row" style="background-color:rgb(0, 77, 153);">
+                    <center><p style="font-size:small;color:white;">This site is designed and developed by National Informatics Centre, Government of India and owned by Department of Public Grievances.</p></center>
+                 </div>
+            </div>
+                
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script type="text/javascript" src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
+
+ </body>
+</html>
