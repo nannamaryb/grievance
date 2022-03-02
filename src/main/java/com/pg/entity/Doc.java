@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +19,12 @@ public class Doc {
 	private String docname;
 	private String docType;
 	
-	@Lob
-	private byte[] data;
+	@OneToOne(mappedBy = "doc")
+	private RegData user;
 	
+	@Lob 
+	private byte[] data;
+	 
 	public Doc() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,13 +34,11 @@ public class Doc {
 		this.docname = docname;
 		this.docType = docType;
 		this.data = data;
-	}
-
+	} 
 	
-
-	public Integer getId() {
+	public Integer getId() { 
 		return id;
-	}
+	} 
  
 	public void setId(Integer id) {
 		this.id = id;

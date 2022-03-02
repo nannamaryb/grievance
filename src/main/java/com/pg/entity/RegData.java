@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.AssertTrue;
@@ -17,45 +18,41 @@ import javax.validation.constraints.Size;
 @Table(name = "register") 
 public class RegData {        
     
-	@Id 
+	@Id  
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id; 
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private State state;
-	 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private District district;
-	  
-	@NotBlank(message = "Name cannot be empty")
-	@Size(min = 3, max = 50,message = "minimum 3 to 50 charcters")
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "alphabets A-Z or a-z are allowed")
-	private String name;
-	 
-	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",message = "please enter a valid email")
-	@NotBlank(message = "Email cannot be empty")
-	private String email;   
+	public Doc getDoc() {
+		return doc;
+	}
 
-	@NotBlank(message = "Mobile cannot be empty")
-	@Pattern(regexp ="(^[6-9]{1}[0-9]{9})",message="must be a valid mobile number")
-	private String mobile;  
-	  
-	@NotBlank(message = "Category cannot be empty")
-	private String category;  
-	 
-	@NotBlank(message = "Please write your grievance here") 
-	private String grievance;   
-	  
-	@NotBlank(message = "Pincode cannot be empty") 
-	@Pattern(regexp = "(^[1-9]{1}[0-9]{5})", message="must be a valid pincode")
-	private String pincode;
-	 
-	@AssertTrue(message = "must confirm")
-	private boolean agreed;        
-	      
-	@NotBlank(message = "please select the gender")   
-	private String gender;             
-	      
+	public void setDoc(Doc doc) {
+		this.doc = doc;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getGender() {      
 		return gender;              
 	}               
@@ -122,4 +119,45 @@ public class RegData {
 	public void setEmail(String email) { 
 		this.email = email;
 	}
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="doc_id", referencedColumnName = "id")
+	private Doc doc;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private State state;
+	 
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private District district;
+	  
+	@NotBlank(message = "Name cannot be empty")
+	@Size(min = 3, max = 50,message = "minimum 3 to 50 charcters")
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "alphabets A-Z or a-z are allowed")
+	private String name;
+	 
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",message = "please enter a valid email")
+	@NotBlank(message = "Email cannot be empty")
+	private String email;   
+ 
+	@NotBlank(message = "Mobile cannot be empty")
+	@Pattern(regexp ="(^[6-9]{1}[0-9]{9})",message="must be a valid mobile number")
+	private String mobile;  
+	  
+	@NotBlank(message = "Category cannot be empty")
+	private String category;  
+	 
+	@NotBlank(message = "Please write your grievance here") 
+	private String grievance;   
+	  
+	@NotBlank(message = "Pincode cannot be empty") 
+	@Pattern(regexp = "(^[1-9]{1}[0-9]{5})", message="must be a valid pincode")
+	private String pincode;
+	 
+	@AssertTrue(message = "must confirm")
+	private boolean agreed;        
+	       
+	@NotBlank(message = "please select the gender")   
+	private String gender;             
+	      
+	
 }
