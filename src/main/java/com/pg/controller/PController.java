@@ -33,7 +33,7 @@ public class PController {
 		model.addAttribute("gender_value", Gender.values());
 
 		return "index"; 
-	} 
+	}  
 	
 	@PostMapping("/addPg")
 	public String processForm(@Valid @ModelAttribute("RegData") RegData regData, BindingResult result, Model model,@RequestParam("files") MultipartFile file) throws IOException
@@ -43,13 +43,22 @@ public class PController {
 		{
 	 		System.out.println(result);
 			model.addAttribute("gender_value",Gender.values());
+			model.addAttribute("state",logDataService.getAllState());
+			model.addAttribute("district",logDataService.getAllDistrict());
 
 		}
-		else {
-			logDataService.addPg(regData);
-			logDataService.saveFile(file); 
+		else 
+		{
+				if(file.isEmpty()==true)
+				{
+					logDataService.saveContent(null, regData); 
+				}
+				else {
+					logDataService.saveContent(file, regData);
+				}
+				
 		}
-		return "index"; 
+		return "redirect:/"; 
 	} 
 	
 }  

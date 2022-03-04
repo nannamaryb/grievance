@@ -42,10 +42,7 @@
 		</dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-devtools</artifactId>
-		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
 		<dependency>
@@ -63,6 +60,10 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 	</dependencies>
 

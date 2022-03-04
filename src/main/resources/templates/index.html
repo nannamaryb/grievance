@@ -50,6 +50,8 @@
                 <div>
                     <h1><b><p style="color: rgb(26, 38, 63);font-size:21px">GRIEVANCE REGISTRATION FORM</p></b></h1>
                   </div> <br><br>
+
+                  
                     <form th:action="@{/addPg}" method="post" th:object="${RegData}" enctype="multipart/form-data">
                       <div class = "row">
                         <div class="col-12 col-md-6">
@@ -140,7 +142,7 @@
                                     <div class="reload-btn"><img width="30px" height="30px" src="images/Refresh.png" th:src="@{images/Refresh.png}"></div>
                                   </div>
                                       <div class="input-area">
-                                        <input type="text" placeholder="Enter captcha" maxlength="6" spellcheck="false" >
+                                        <input type="text" placeholder="Enter captcha" maxlength="6" spellcheck="false" required>
                                         <button class="check-btn">Check</button>
                                       </div>
                                   <div class="status-text"></div>

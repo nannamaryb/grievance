@@ -18,6 +18,7 @@ public class District {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	String name;
+	
 	@Column(name="state_id") 
 	int stateId;
 	
@@ -27,7 +28,7 @@ public class District {
 	
 	public Integer getId() {
 		return id;
-	}
+	} 
 	public void setId(Integer id) { 
 		this.id = id;
 	}

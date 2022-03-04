@@ -1,6 +1,9 @@
 package com.pg.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,14 +19,16 @@ public class Doc {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(nullable = false)
 	private String docname;
 	private String docType;
-	
-	@OneToOne(mappedBy = "doc")
-	private RegData user;
-	
+
 	@Lob 
 	private byte[] data;
+	
+	@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL, mappedBy = "doc")
+	private RegData regData;
 	 
 	public Doc() {
 		super();
@@ -34,8 +39,8 @@ public class Doc {
 		this.docname = docname;
 		this.docType = docType;
 		this.data = data;
-	} 
-	
+	}
+
 	public Integer getId() { 
 		return id;
 	} 
@@ -66,6 +71,13 @@ public class Doc {
 
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+	public RegData getRegData() {
+		return regData;
+	}
+	public void setRegData(RegData regData) {
+		this.regData = regData;
 	}	
+	
 	
 }

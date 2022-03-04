@@ -29,13 +29,8 @@ public class RegDataService {
 	DistrictRepository districtDao;
 	
 	@Autowired
-	private DocRepository docRepository;
+	DocRepository docRepository;
 	
-	
-	public void addPg(RegData regData) {
-		regDataDao.save(regData);
-	}
-
 	public List<State> getAllState(){
 		return stateDao.findAll();
 	}
@@ -44,10 +39,27 @@ public class RegDataService {
 		return districtDao.findAll();
 	} 
 	
-	public Doc saveFile(MultipartFile file) throws IOException {
+	public void saveContent(MultipartFile file, RegData regData) throws IOException {
 		
-		String docname = file.getOriginalFilename();
-			Doc doc = new Doc(docname,file.getContentType(),file.getBytes());
-			return docRepository.save(doc);
-	}
+	    String emailString = regData.getEmail();
+	    if(regDataDao.existsByEmail(emailString)) {
+	    	throw new RuntimeException("Email aldready exists");
+	    } 
+	    
+	    else {
+	    			if(file == null)
+	    			{
+	    				regData.setDoc(null);
+	    				regDataDao.save(regData);
+	    			}
+	    			else {
+	    				String docname = file.getOriginalFilename();
+						Doc doc = new Doc(docname,file.getContentType(),file.getBytes());
+						docRepository.save(doc);
+						regData.setDoc(doc);
+						doc.setRegData(regData);
+						regDataDao.save(regData);
+					}
+	    		}
+			}	
 }

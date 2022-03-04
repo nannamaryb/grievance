@@ -8,4 +8,5 @@ import com.pg.entity.RegData;
 @Repository
 public interface RegDataRepository extends JpaRepository<RegData, Integer>{
 
+	Boolean existsByEmail(String email);
 }
