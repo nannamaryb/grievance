@@ -29,10 +29,11 @@
             <div class="container px-5">
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#!">Home</a></li>
                     <li class="nav-item"><a aria-current="page" class="nav-link active" th:href="@{/}">Lodge Grievance</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/login}">Sign in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!"th:href="@{/track}">Track Grievance</a></li>
+                    
                 </ul>
               </div>
             </div>
@@ -57,7 +58,7 @@
                         <div class="col-12 col-md-6">
                               <div class="form-group">
                                 <label class="required"><b>Name</b></label>
-                                  <input type="text" class="form-control" id="inputname" name="name" th:value="${RegData.name}" th:classappend="${#fields.hasErrors('name')?'is-invalid':''}" >
+                                  <input type="text" class="form-control" id="inputname" name="name"  th:classappend="${#fields.hasErrors('name')?'is-invalid':''}" >
                                     <div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}"></div>
                               </div>
                               <br>                        
@@ -95,17 +96,17 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                   <label class="required"><b>State</b></label>
-                                  <select id="inputState" class="form-control">
+                                  <select id="inputState" class="form-control" >
                                   <option selected>--select a state--</option>
-                                  <option th:each="s: ${state}" th:text="${s.name}" th:vale="${s.id}"></option>
+                                  <option th:each="s: ${states}" th:text="${s.name}" th:value ="${s.name}" ></option>
                                   </select>
                                 </div>
                                     <br>
                                 <div class="form-group col-md-6">
                                   <label class="required"><b>District</b></label>
-                                  <select id="inputState" class="form-control">
-                                  <option selected>--select district--</option>
-                                  <option th:each="d: ${district}" th:text="${d.name}" th:if="${d.stateId == 18}" th:vale="${d.id}"></option>
+                                  <select id="inputState" class="form-control" >
+                                    <option selected>--select a district--</option>
+                                  <option th:each="d: ${districts}" th:text="${d.name}" th:value="${d.name}"></option>
                                   </select>
                                 </div>
                             </div>

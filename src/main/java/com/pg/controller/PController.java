@@ -28,12 +28,18 @@ public class PController {
 	public String index(Model model) throws IOException
 	{
 		model.addAttribute("RegData", new RegData());
-		model.addAttribute("state",logDataService.getAllState());
-		model.addAttribute("district",logDataService.getAllDistrict());
+		model.addAttribute("states",logDataService.getAllState()); 
+		model.addAttribute("districts",logDataService.getAllDistrict());
 		model.addAttribute("gender_value", Gender.values());
 
-		return "index"; 
+		return "index";  
 	}  
+	
+	
+	@RequestMapping("/track")
+	public String track() {
+		return "track"; 
+	}
 	
 	@PostMapping("/addPg")
 	public String processForm(@Valid @ModelAttribute("RegData") RegData regData, BindingResult result, Model model,@RequestParam("files") MultipartFile file) throws IOException
@@ -48,17 +54,17 @@ public class PController {
 
 		}
 		else 
-		{
+		{ 
 				if(file.isEmpty()==true)
 				{
 					logDataService.saveContent(null, regData); 
 				}
 				else {
-					logDataService.saveContent(file, regData);
+			 		logDataService.saveContent(file, regData);
 				}
-				
+				 
 		}
-		return "redirect:/"; 
+		return "redirect:/track"; 
 	} 
 	
 }  

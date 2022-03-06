@@ -1,6 +1,8 @@
 package com.pg.entity;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,35 +22,36 @@ public class District {
 	Integer id;
 	String name;
 	
-	@Column(name="state_id") 
-	int stateId;
-	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "district")
+    private List<RegData> regDatas;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-	State state;
-	
+    @JoinColumn(name = "state_id")
+	private State state;
+
 	public Integer getId() {
 		return id;
-	} 
-	public void setId(Integer id) { 
+	}
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
-	} 
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getStateId() {
-		return stateId;
-	}
-	public void setStateId(int stateId) {
-		this.stateId = stateId;
-	} 
+
 	public State getState() {
 		return state;
 	}
+
 	public void setState(State state) {
 		this.state = state;
-	} 
-}
+	}
+	
+	 
+}  

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -15,6 +16,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
   
 @Entity 
 @Table(name = "register",uniqueConstraints={@UniqueConstraint(columnNames={"email","name","mobile"})})
@@ -25,10 +27,17 @@ public class RegData {
 	Integer id; 
 
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "doc_id")
     private Doc  doc;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "state_id")
+	private State state;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "district_id")
+	private District district;
 	  
 	public RegData() {
 		super();
@@ -66,12 +75,6 @@ public class RegData {
 	       
 	@NotBlank(message = "please select the gender")   
 	private String gender; 
-	
-	
-	private String state;
-	
-	private String district;
-	
 	
 
 	public Integer getId() {
@@ -125,19 +128,20 @@ public class RegData {
 		return name;
 	}
 
-	public String getState() {
+	
+	public State getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
-	public String getDistrict() {
+	public District getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(String district) {
+	public void setDistrict(District district) {
 		this.district = district;
 	}
 
@@ -180,7 +184,7 @@ public class RegData {
 			@NotBlank(message = "Please write your grievance here") String grievance,
 			@NotBlank(message = "Pincode cannot be empty") @Pattern(regexp = "(^[1-9]{1}[0-9]{5})", message = "must be a valid pincode") String pincode,
 			@AssertTrue(message = "must confirm") boolean agreed,
-			@NotBlank(message = "please select the gender") String gender, String state, String district) {
+			@NotBlank(message = "please select the gender") String gender, State state, District district) {
 		super();
 		this.name = name;
 		this.email = email;

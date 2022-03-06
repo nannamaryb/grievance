@@ -43,7 +43,7 @@ public class RegDataService {
 		
 	    String emailString = regData.getEmail();
 	    if(regDataDao.existsByEmail(emailString)) {
-	    	throw new RuntimeException("Email aldready exists");
+	    	System.out.println("aldread exists");
 	    } 
 	    
 	    else {
@@ -51,7 +51,7 @@ public class RegDataService {
 	    			{
 	    				regData.setDoc(null);
 	    				regDataDao.save(regData);
-	    			}
+	     			}
 	    			else {
 	    				String docname = file.getOriginalFilename();
 						Doc doc = new Doc(docname,file.getContentType(),file.getBytes());
